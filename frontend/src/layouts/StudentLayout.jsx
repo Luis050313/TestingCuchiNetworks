@@ -2,42 +2,40 @@ import { Outlet } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import { useAuth } from '../context/AuthContext';
 import { Home, PenTool, History, AlertOctagon } from 'lucide-react';
-
-const TeacherLayout = () => {
+const StudentLayout = () => {
   const { user } = useAuth();
 
-  const teacherMenu = [
+  const studentMenu = [
     {
       label: 'Inicio',
-      path: '/docente/dashboard',
+      path: '/alumno/dashboard',
       icon: <Home size={22} />
     },
     {
-      label: 'Gestión de Clase',
+      label: 'Mis Reportes',
       icon: <PenTool size={22} />,
       subItems: [
-        { label: 'Registrar Actividad', path: '/docente/registrar-uso' }, // Lo que más usan
-        { label: 'Mi Historial', path: '/docente/historial' }
+        { label: 'Crear Reporte', path: '/alumno/reportes/crear' },
+        { label: 'Historial de Reportes', path: '/alumno/reportes/historial' }
       ]
     },
     {
       label: 'Soporte Técnico',
       icon: <AlertOctagon size={22} />,
       subItems: [
-        { label: 'Reportar Falla', path: '/docente/reportar' },
-        { label: 'Mis Reportes', path: '/docente/mis-reportes' }
+        { label: 'Mis Reportes', path: '/alumno/reportes' }
       ]
     }
   ];
 
   return (
     <div className="flex min-h-screen bg-cuchi-base font-sans">
-      <Sidebar menuItems={teacherMenu} title="Docente" user={user} />
+      <Sidebar menuItems={studentMenu} title="Alumno" user={user} />
       <main className="flex-1 p-6 md:p-10 overflow-y-auto">
         <Outlet />
       </main>
     </div>
   );
-};
+}
 
-export default TeacherLayout;
+export default StudentLayout;

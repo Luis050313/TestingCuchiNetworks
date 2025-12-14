@@ -11,7 +11,6 @@ import StudentLayout from "./layouts/StudentLayout";
 import Login from "./pages/Login";
 import AdminDashboard from "./pages/AdminDashboard";
 import TeacherDashboard from "./pages/TeacherDashboard"; // <--- 1. ¡IMPORTAR ESTO!
-
 // Pages Admin
 import EquiposPage from "./pages/EquiposPage";
 import EquipoDetallePage from "./pages/EquipoDetallePage";
@@ -31,6 +30,7 @@ import RegistrarClasePage from "./pages/RegistrarClasePage"; // Asegúrate que e
 import HistorialDocentePage from "./pages/HistorialDocentePage";
 import MisReportesPage from "./pages/MisReportesPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import StudentDashboard from "./pages/StudentDashboard";
 
 // Componente de Ruta Protegida
 const ProtectedRoute = ({ children, requiredRole }) => {
@@ -129,15 +129,9 @@ function App() {
             </ProtectedRoute>
           }
         >
-          <Route
-            path="dashboard"
-            element={
-              <div className="p-10 text-center">
-                <h1 className="text-3xl font-bold text-cuchi-text">Panel de Alumno</h1>
-                <p className="text-gray-400 mt-2">Próximamente...</p>
-              </div>
-            }
-          />
+          <Route path="dashboard" element={<StudentDashboard />} />
+        
+
         </Route>
 
         {/* 404 */}
