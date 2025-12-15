@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react';
 import { Clock, Calendar, BookOpen, MapPin, User, AlertTriangle } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import client from '../config/axios';
-import ReporteModal from '../components/ReporteModal'; // ✅ Reutilizamos componente
-
+import ReporteModal from '../components/ReporteModal';
 const StudentDashboard = () => {
   const { user } = useAuth();
   const [loading, setLoading] = useState(true);
