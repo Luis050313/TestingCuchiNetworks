@@ -7,38 +7,49 @@ async function loginTest() {
 
     try {
 
-        // Abrir página
+        // Abrir login
         await driver.get('http://localhost:5173/login#');
 
         // Maximizar ventana
         await driver.manage().window().maximize();
 
-        // Esperar inputs
-        await driver.wait(until.elementLocated(By.css('input[type="email"]')), 5000);
+        // Esperar input email
+        await driver.wait(
+            until.elementLocated(By.css('input[type="email"]')),
+            5000
+        );
 
         // Escribir email
         await driver.findElement(By.css('input[type="email"]'))
-            .sendKeys('l22056714@saltillo.tecnm.mx');
+            .sendKeys('eduardo.valdivia.lugo@cuchi.net');
 
         // Escribir password
         await driver.findElement(By.css('input[type="password"]'))
-            .sendKeys('12345');
+            .sendKeys('ositoBimbo');
 
         // Click botón ingresar
         await driver.findElement(By.css('button[type="submit"]'))
             .click();
 
-        // Esperar mensaje de error
-        const errorDiv = await driver.wait(
-            until.elementLocated(
-                By.xpath("//div[contains(text(),'Usuario o contraseña incorrectos')]")
-            ),
+        // Esperar redirección al dashboard
+        await driver.wait(
+            until.urlContains('/admin/dashboard'),
             5000
         );
 
-        // Verificar si se mostró
-        if (await errorDiv.isDisplayed()) {
+        // Obtener URL actual
+        const currentUrl = await driver.getCurrentUrl();
+
+        // Verificar acceso correcto
+        if (currentUrl.includes('/admin/dashboard')) {
+
             console.log("Funcionamiento correcto");
+            console.log("Ingresó al dashboard");
+
+        } else {
+
+            console.log("No ingresó correctamente");
+
         }
 
     } catch (error) {
@@ -48,7 +59,7 @@ async function loginTest() {
 
     } finally {
 
-        // Esperar un poco antes de cerrar
+        // Esperar antes de cerrar
         await driver.sleep(3000);
 
         // Cerrar navegador
