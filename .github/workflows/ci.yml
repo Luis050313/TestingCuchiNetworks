@@ -1,0 +1,68 @@
+name: CuchiNetworks CI
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+
+  selenium-test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # Clonar repositorio
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Instalar Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Instalar dependencias backend
+      - name: Install backend dependencies
+        working-directory: ./backend
+        run: npm install
+
+      # Instalar dependencias frontend
+      - name: Install frontend dependencies
+        working-directory: ./frontend
+        run: npm install
+
+      # Instalar dependencias testing
+      - name: Install testing dependencies
+        working-directory: ./testing
+        run: npm install
+
+      # Construir frontend
+      - name: Build frontend
+        working-directory: ./frontend
+        run: npm run build
+
+      # Levantar Docker Compose
+      - name: Start containers
+        run: docker compose up -d --build
+
+      # Esperar a que frontend y backend estén listos
+      - name: Wait for application
+        run: sleep 25
+
+      # Ejecutar Selenium Headless
+      - name: Run Selenium tests
+        working-directory: ./testing
+        run: npm test
+
+      # Mostrar logs si falla
+      - name: Show container logs
+        if: failure()
+        run: docker compose logs
+
+      # Apagar contenedores
+      - name: Stop containers
+        if: always()
+        run: docker compose down

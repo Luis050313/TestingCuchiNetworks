@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
+    "test": "echo 'No tests yet'",
+    "lint": "echo 'No lint configured'",
     "seed": "node scripts/seedUsers.js",
     "create-user": "node scripts/createUser.js"
   },
