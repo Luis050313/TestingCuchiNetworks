@@ -36,7 +36,7 @@ async function loginTest() {
 
         // Password
         await driver.findElement(By.css('input[type="password"]'))
-            .sendKeys('ositoBimbo');
+            .sendKeys('ositoBimbo1');
 
         // Click login
         await driver.findElement(By.css('button[type="submit"]'))
